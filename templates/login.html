@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录-服务器资源管理系统</title>
+    <style type="text/css">
+        body{
+            background-color: gray;
+        }
+        .wrap{
+            align: center;
+            width: 414px;
+            height: 240px;
+            border: solid rgb(238,238,238) 2px;
+            background-color: white;
+            /*margin: 0px auto;*/
+        }
+        .wrap .input{
+            height: 38px;
+            width: 268px;
+            box-sizing: border-box;
+            padding: 10px;
+            padding-right: 0px;
+            margin-bottom: 17px;
+            border-radius: 3px;
+            border: solid rgb(214,214,21)  1px;
+        }
+        .wrap .button{
+            border-radius: 3px;
+            height: 37px;
+            width: 258px;
+            padding: 1px 7px 2px 7px;
+            box-sizing: content-box;
+            border: none;
+            background-color:rgb(136,210,48) ;
+            color: white;
+            font-size: 17px;
+        }
+        .wrap .title{
+            margin-top: 6px;
+            margin-bottom: 16px;
+            font-size: 20px;
+            color: rgb(51,51,51);
+            text-align: center;/*居中*/
+
+        }
+    </style>
+</head>
+<body>
+
+<form action="" method="post">
+    <br><br><br><br><br>
+    <div align="center">
+        <div align="center" class="wrap" align="center">
+            <br>
+            <div class="title">
+                服务器资源管理系统
+            </div>
+            <input type="text" name="account" class="input" placeholder='输入用户名' required>
+            <input type="password" name="password" class="input" placeholder='输入密码' required>
+            <br>
+            <input type="submit" name="key"  class="button" value="登录" ><br>
+            <!-- <br>
+            <input type="submit" name="key"  class="button" value="注册" ><br> -->
+        </div>
+    </div>
+
+</form>
+
+</body>
+</html>

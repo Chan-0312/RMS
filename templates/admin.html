@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!--30s自动刷新-->
+    <!-- <meta http-equiv="refresh" content="30"/> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>管理员-服务器资源管理系统</title>
+    <style type="text/css">
+
+        body{
+            background-color: gray;
+        }
+        .wrap{
+            align: center;
+            width: 1500px;
+            border: solid rgb(238,238,238) 2px;
+            background-color: white;
+            /*margin: 0px auto;*/
+        }
+        .wrap .input{
+            height: 38px;
+            width: 268px;
+            box-sizing: border-box;
+            padding: 10px;
+            padding-right: 0px;
+            margin-bottom: 17px;
+            border-radius: 3px;
+            border: solid rgb(214,214,21)  1px;
+        }
+        .wrap .button{
+            border-radius: 3px;
+            height: 37px;
+            width: 290px;
+            padding: 1px 7px 2px 7px;
+            box-sizing: content-box;
+            border: none;
+            background-color:rgb(136,210,48) ;
+            color: white;
+            font-size: 17px;
+        }
+        .wrap .title{
+            margin-top: 6px;
+            margin-bottom: 6px;
+            font-size: 20px;
+            color: rgb(51,51,51);
+            text-align: center;/*居中*/
+        }
+    </style>
+</head>
+<body>
+    <br><br>
+    <form action="" method="post">
+        <div align="center">
+            <div class="wrap" align="center" >
+                <div class="title">
+                    {{username}}
+                </div>
+                <input type="submit" name="key" value="刷新"  class="button"  >
+                <input type="submit" name="key" value="退出"  class="button"  >
+                <div class="title">
+            </div>
+        </div>
+    </form>
+
+    
+    <br><br>
+    <form action="" method="post">
+        <div align="center">
+            <div class="wrap" align="center" >
+                <div class="title">
+                    我的容器
+                </div>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>容器</td>
+                            <td>jupyter</td>
+                            <td>镜像</td>
+                            <td>端口</td>
+                            <td>状态</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k in range(my_container[0]) %}
+                        <tr>
+                            <td><input type="checkbox"  name="checkbox_my_container" value={{my_container[1][k][0]}}> {{my_container[1][k][0]}} </td>
+                            <td><a href="{{my_container[1][k][1]}}" >{{my_container[1][k][1]}}</a></td>
+                            <td>{{my_container[1][k][2]}}</td>
+                            <td>{{my_container[1][k][3]}}</td>
+                            <td>{{my_container[1][k][4]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <input type="submit" name="key" value="启动容器"  class="button"  >
+                <input type="submit" name="key" value="停止容器"  class="button"  >
+                <input type="submit" name="key" value="删除容器"  class="button"  >
+                <div class="title">
+            </div>
+        </div>
+    </form>
+
+    <br><br>
+    <form action="" method="post">
+        <div align="center">
+            <div class="wrap" align="center" >
+                <div class="title">
+                    申请容器
+                </div>
+                <table class=" table-striped table-bordered table-hover" align="center">
+                    <tr>
+                        <td>镜像选择:</td>
+                        <td>
+                            <select name="select_image" style="width:500px;text-align:center;" value="{{docker_images[1][k]}}" required>
+                                {% for k in range(docker_images[0]) %}
+                                <option value="{{docker_images[1][k]}}">{{docker_images[1][k]}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>资源类型:</td>
+                        <td>
+                            <select name="select_resource_type" style="width:500px;text-align:center;" value="CPU" required>
+                                <option value="CPU">CPU</option>
+                                <option value="GPU">GPU</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>端口映射:</td>
+                        <td>
+                            <input type="text" name="port_mapping" class="input" style="width:500px;text-align:center;"  value="22|8888" required>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <input type="submit" name="key" value="申请容器"  class="button"  >
+                <div class="title">
+            </div>
+        </div>
+    </form>
+
+    
+    <br><br>
+    <form action="" method="post">
+        <div align="center">
+            <div class="wrap" align="center" >
+                <div class="title">
+                    申请使用资源
+                </div>
+                <table class=" table-striped table-bordered table-hover" align="center">
+                    <tr>
+                        <td>资源号:</td>
+                        <td><input type="number" min=0  name="apply_resource_id" value="0" style="width:500px;text-align:center;" required></td>
+                    </tr>
+                    <tr>
+                        <td>pid号:</td>
+                        <td><input type="number" min=0  name="apply_pid" value="0" style="width:500px;text-align:center;" required></td>
+                    </tr>
+                    <tr>
+                        <td>内存占用量:</td>
+                        <td><input type="number" min=0 name="apply_CPU" value="1024" style="width:500px;text-align:center;" required></td>
+                    </tr>
+                    <tr>
+                        <td>显存占用量:</td>
+                        <td><input type="number" min=0 name="apply_GPU" value="1024" style="width:500px;text-align:center;" required></td>
+                    </tr>
+                    <tr>
+                        <td>使用时长:</td>
+                        <td><input type="number" min=0 name="apply_duration" value="2" style="width:500px;text-align:center;" required></td>
+                    </tr>
+                    <tr>
+                        <td>申请说明:</td>
+                        <td><input type="text" name="apply_instruction" class="input" style="width:500px;text-align:center;"  value="做XXX实验" required></td>
+                    </tr>
+                </table>
+                <input type="submit" name="key" value="申请使用资源"  class="button"  >
+                <input type="submit" name="key" value="修改申请使用"  class="button"  >
+                <div class="title">
+            </div>
+        </div>
+    </form>
+
+    <br><br>
+    <form action="" method="post">
+        <div align="center">
+            <div class="wrap" align="center" >
+                <div class="title">
+                    容器审核
+                </div>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td>容器名</td>
+                            <td>归属用户</td>
+                            <td>镜像类型</td>
+                            <td>资源类型</td>
+                            <td>端口映射</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k in range(container_review[0]) %}
+                        <tr>
+                            <td><input type="checkbox"  name="checkbox_container_review" value={{container_review[1][k][0]}}> {{container_review[1][k][0]}} </td>
+                            <td>{{container_review[1][k][1]}}</td>
+                            <td>{{container_review[1][k][2]}}</td>
+                            <td>{{container_review[1][k][3]}}</td>
+                            <td>{{container_review[1][k][4]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <input type="submit" name="key" value="容器申请通过"  class="button"  >
+                <input type="submit" name="key" value="容器申请拒绝"  class="button"  >
+                <div class="title">
+            </div>
+        </div>
+    </form>
+
+    
+    <br><br>
+    <form action="" method="post">
+        <div align="center">
+            <div class="wrap" align="center" >
+                <div class="title">
+                    服务器使用情况
+                </div>
+                <!-- <div id="dateTime">dateTime</div> -->
+                <div style="float:left;margin-left:7px;display:inline; padding-top:7px">
+                        内存使用率:{{server_usage[0]}}
+                </div>
+                <div style="padding-top:5px;float:right;padding-right:4px;">
+                        显存使用率:{{server_usage[1]}}
+                </div>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td>容器</td>
+                        <td>PID</td>
+                        <td>CPU</td>
+                        <td>内存</td>
+                        <td>指令</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for k in range(server_usage[2]) %}
+                        <tr>
+                            <td><input type="checkbox"  name="checkbox_server_usage" value={{server_usage[3][k][1]}}> {{server_usage[3][k][0]}} </td>
+                            <td>{{server_usage[3][k][1]}}</td>
+                            <td>{{server_usage[3][k][2]}}</td>
+                            <td>{{server_usage[3][k][3]}}</td>
+                            <td>{{server_usage[3][k][4]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <input type="submit" name="key" value="杀死进程"  class="button"  >
+                <div class="title">
+            </div>
+        </div>
+    </form>
+
+
+    <br><br>
+    <form action="" method="post">
+        <div align="center">
+            <div class="wrap" align="center" >
+                <div class="title">
+                    资源申请表
+                </div>
+                <!-- <div id="dateTime">dateTime</div> -->
+                <div style="float:left;margin-left:7px;display:inline; padding-top:7px">
+                        待审核表单数:{{resource_requests[2]}}
+                </div>
+     
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>   
+                    <tr>
+                        <td>申请编号</td>
+                        <td>用户(PID)</td>
+                        <td>内存/显存</td>
+                        <td>申请时间(使用时长)</td>
+                        <td>状态</td>
+                        <td>申请说明</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for k in range(resource_requests[0]) %}
+                        <tr>
+                            <td><input type="checkbox"  name="checkbox_resource_requests" value={{resource_requests[1][k][0]}}> {{resource_requests[1][k][0]}} </td>
+                            <td>{{resource_requests[1][k][1]}}</td>
+                            <td>{{resource_requests[1][k][2]}}</td>
+                            <td>{{resource_requests[1][k][3]}}</td>
+                            <td>{{resource_requests[1][k][4]}}</td>
+                            <td>{{resource_requests[1][k][5]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <input type="submit" name="key" value="同意申请资源"  class="button"  >
+                <input type="submit" name="key" value="释放申请资源"  class="button"  >
+                <input type="submit" name="key" value="删除申请资源"  class="button"  >
+                <div class="title">
+            </div>
+        </div>
+    </form>
+
+    <br>
+    <p>该软件由熊盛春编写</p>
+
+    <br>
+    <br>
+</body>
+</html>
