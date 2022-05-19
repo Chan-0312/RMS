@@ -1,0 +1,20 @@
+{
+    "local_IP": "192.168.100.195",
+    "docker_data_path": "/home/xsc/docker",
+    "user_json_path": "./data/user.json",
+    "container_json_path": "./data/container.json",
+    "resource_json_path": "./data/resource.json",
+    "user_max_container_num": 3,
+    "max_resource_table_num": 65535,
+    "port_mapping_scope": [10000, 20000],
+    "docker_images": {
+        "bash": {
+            "image_name": "bash",
+            "start_cmd": "docker start container_name|docker exec -it container_name bash"
+        },
+        "ubuntu20": {
+            "image_name": "ubuntu20",
+            "start_cmd": "docker start container_name|docker exec container_name service ssh start|docker exec container_name bash -c \"jupyter notebook &\""
+        }
+    }
+}

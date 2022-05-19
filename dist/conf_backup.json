@@ -1,0 +1,20 @@
+{
+    "local_IP": "192.168.100.195",
+    "docker_data_path": "/data/docker",
+    "user_json_path": "./data/user.json",
+    "container_json_path": "./data/container.json",
+    "resource_json_path": "./data/resource.json",
+    "user_max_container_num": 3,
+    "max_resource_table_num": 65535,
+    "port_mapping_scope": [10000, 20000],
+    "docker_images": {
+        "ubuntu_pytorch_cuda_jupyter_base": {
+            "image_name": "ubuntu_pytorch_cuda_jupyter_base",
+            "start_cmd": "docker start container_name|docker exec container_name service ssh start|docker exec container_name bash -c \"jupyter notebook &\""
+        },
+        "manjaro_pytorch_cuda_jupyter_base": {
+            "image_name": "manjaro_pytorch_cuda_jupyter_base",
+            "start_cmd": "docker start container_name|docker exec container_name service ssh start|docker exec container_name bash -c \"jupyter notebook &\""
+        }
+    }
+}
